@@ -1,13 +1,17 @@
-FROM node:lts
+FROM node:18
 
 WORKDIR /app
 
-COPY . ./
+# Copy package files
+COPY backend/package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
-# Build the application
+# Copy rest of the application
+COPY backend/ .
+
+# Build application
 RUN npm run build
 
 # Start the application
